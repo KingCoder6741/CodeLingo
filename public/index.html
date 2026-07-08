@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>CodeLingo – Speak any language. Code any language.</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+  <div class="page">
+    <!-- Navigation -->
+    <header>
+      <nav class="nav">
+        <div class="logo">
+          <div class="logo-icon">🧠</div>
+          <div>
+            <div class="logo-text-main">CodeLingo</div>
+            <div class="logo-text-sub">Learn Code & Language</div>
+          </div>
+        </div>
+        <div class="nav-links">
+          <a href="#lessons">Lessons</a>
+          <a href="#pricing">Pricing</a>
+          <a href="#about">About</a>
+        </div>
+        <button class="nav-cta" onclick="openAuth()">Sign In / Register</button>
+      </nav>
+    </header>
+
+    <main>
+      <!-- Hero Section -->
+      <section class="section hero">
+        <div>
+          <div class="hero-tag">
+            <span class="hero-tag-dot"></span>
+            Now Open
+          </div>
+          <h1 class="hero-title">
+            Speak any language.<br />
+            <span>Code any language.</span>
+          </h1>
+          <p class="hero-sub">
+            Master programming and foreign languages together. Learn Italian while building JavaScript apps. Free for users under 18.
+          </p>
+          <div class="hero-cta-row">
+            <button class="btn-primary" onclick="openAuth()">Start Learning</button>
+            <button class="btn-secondary" onclick="scrollToSection('lessons')">View Lessons</button>
+          </div>
+          <p class="hero-note">Free tier available • No credit card required</p>
+        </div>
+        <div class="hero-right">
+          <div class="hero-card">
+            <div class="hero-card-header">
+              <div class="hero-card-title">Your Progress</div>
+              <div class="hero-card-mode">
+                <div class="mode-dot-green"></div>
+                Learning
+              </div>
+            </div>
+            <div class="hero-card-body">
+              <div class="mini-card">
+                <div class="mini-label">Language</div>
+                <div class="mini-main" id="hero-lang-xp">0 XP</div>
+                <div class="mini-sub">Italian Progress</div>
+              </div>
+              <div class="mini-card">
+                <div class="mini-label">Code</div>
+                <div class="mini-main" id="hero-code-xp">0 XP</div>
+                <div class="mini-sub">JavaScript Progress</div>
+              </div>
+              <div class="mini-card">
+                <div class="mini-label">Level</div>
+                <div class="mini-main" id="hero-level">0</div>
+                <div class="mini-sub">Overall Level</div>
+              </div>
+              <div class="mini-card">
+                <div class="mini-label">Streak</div>
+                <div class="mini-main" id="hero-streak">0 🔥</div>
+                <div class="mini-sub">Daily Visits</div>
+              </div>
+            </div>
+          </div>
+          <div class="lex-tag">
+            <div class="lex-icon"></div>
+            LEX AI Assistant
+          </div>
+        </div>
+      </section>
+
+      <!-- Lessons Section -->
+      <section class="section" id="lessons">
+        <h2 class="section-title">Available Lessons</h2>
+        <p class="section-sub">Choose your path: Languages, Code, or Both</p>
+        <div class="grid-2" id="lessons-grid"></div>
+      </section>
+
+      <!-- Pricing Section -->
+      <section class="section" id="pricing">
+        <h2 class="section-title">Simple Pricing</h2>
+        <p class="section-sub">Free for students under 18. Premium plans coming soon.</p>
+        <div class="pricing-grid" id="pricing-grid"></div>
+      </section>
+
+      <!-- Dashboard (Hidden until logged in) -->
+      <section class="section" id="dashboard" style="display:none;">
+        <h2 class="section-title">Your Dashboard</h2>
+        <div class="grid-2">
+          <div class="card">
+            <div class="card-label">Welcome</div>
+            <div class="card-title" id="dash-name">Loading...</div>
+            <div class="card-text">Plan: <span id="dash-plan">—</span></div>
+            <div class="pill-row">
+              <span class="pill" id="dash-title">Learner</span>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-label">Progress</div>
+            <div class="card-title">Level <span id="dash-level">0</span></div>
+            <div class="card-text">XP: <span id="dash-xp">0</span></div>
+            <div class="pill-row">
+              <span class="pill">Streak: <span id="dash-streak">0</span>🔥</span>
+            </div>
+          </div>
+        </div>
+        <div style="margin-top: 20px;">
+          <h3 class="section-title">Recommended Next</h3>
+          <div class="card">
+            <div class="card-label">LEX Says</div>
+            <div class="card-title" id="dash-rec">Complete a lesson to get recommendations</div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+      <div class="footer-inner">
+        <div>© 2026 CodeLingo. Learning languages & code together.</div>
+        <div class="footer-links">
+          <a href="#">Privacy</a>
+          <a href="#">Terms</a>
+          <a href="#">Contact</a>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <!-- Auth Modal -->
+  <div class="modal" id="auth-modal">
+    <div class="modal-content">
+      <h2>Sign In or Register</h2>
+      <p id="auth-mode-text">Create a new account</p>
+      <input type="text" id="auth-name" placeholder="Full name" />
+      <input type="email" id="auth-email" placeholder="Email" />
+      <input type="password" id="auth-pass" placeholder="Password (min 6 chars)" />
+      <input type="number" id="auth-age" placeholder="Age" />
+      <button class="btn-primary" style="width: 100%; margin-top: 10px;" onclick="registerUser()">Create Account</button>
+      <p style="margin-top: 10px; font-size: 12px; text-align: center; color: var(--text-soft);">
+        Already have an account? <a href="#" onclick="loginMode()" style="color: var(--blue);">Sign In</a>
+      </p>
+      <button class="btn-secondary" style="width: 100%; margin-top: 10px;" onclick="closeAuth()">Close</button>
+    </div>
+  </div>
+
+  <!-- Lesson Viewer Modal -->
+  <div class="modal" id="lesson-modal" style="display: none;">
+    <div class="modal-content" style="max-width: 500px;">
+      <h2 id="lesson-title">Loading...</h2>
+      <ol id="lesson-steps" style="margin: 15px 0; color: var(--text-soft);"></ol>
+      <button class="btn-primary" style="width: 100%;" onclick="completeLesson()">Complete Lesson</button>
+      <button class="btn-secondary" style="width: 100%; margin-top: 10px;" onclick="closeLessonModal()">Close</button>
+    </div>
+  </div>
+
+  <script src="/js/api.js"></script>
+  <script src="/js/auth.js"></script>
+  <script src="/js/progress.js"></script>
+  <script src="/js/lessons.js"></script>
+  <script src="/js/ui.js"></script>
+</body>
+</html>
