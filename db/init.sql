@@ -6,6 +6,8 @@ CREATE TABLE IF NOT EXISTS users (
   password_hash VARCHAR(255) NOT NULL,
   age INT NOT NULL,
   plan VARCHAR(50) DEFAULT 'NONE',
+  verified_at TIMESTAMP,
+  verification_token VARCHAR(255),
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
@@ -96,8 +98,11 @@ SELECT
   ROW_NUMBER() OVER (ORDER BY p.total_xp DESC) as rank
 FROM users u
 JOIN progress p ON u.id = p.user_id
+WHERE u.verified_at IS NOT NULL
 ORDER BY p.total_xp DESC;
 
 CREATE INDEX idx_user_id ON progress(user_id);
 CREATE INDEX idx_lesson_id ON lesson_steps(lesson_id);
 CREATE INDEX idx_user_lesson ON user_lesson_progress(user_id, lesson_id);
+CREATE INDEX idx_email ON users(email);
+CREATE INDEX idx_verification_token ON users(verification_token);

@@ -5,6 +5,8 @@ import authRoutes from './routes/auth.js';
 import userRoutes from './routes/users.js';
 import lessonRoutes from './routes/lessons.js';
 import progressRoutes from './routes/progress.js';
+import codeSandboxRoutes from './routes/code-sandbox.js';
+import adminRoutes from './routes/admin.js';
 import { verifyToken } from './middleware/auth.js';
 
 dotenv.config();
@@ -25,6 +27,8 @@ app.use('/api/auth', authRoutes);
 app.use('/api/users', verifyToken, userRoutes);
 app.use('/api/lessons', verifyToken, lessonRoutes);
 app.use('/api/progress', verifyToken, progressRoutes);
+app.use('/api/sandbox', verifyToken, codeSandboxRoutes);
+app.use('/api/admin', adminRoutes); // No token required, uses admin key
 
 // Health check
 app.get('/api/health', (req, res) => {
@@ -47,4 +51,5 @@ app.use((err, req, res, next) => {
 app.listen(PORT, () => {
   console.log(`✅ CodeLingo server running on http://localhost:${PORT}`);
   console.log(`📚 API available at http://localhost:${PORT}/api`);
+  console.log(`⚙️  Admin panel at http://localhost:${PORT}/api/admin (requires admin_key)`);
 });
