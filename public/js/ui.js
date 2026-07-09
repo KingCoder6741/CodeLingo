@@ -1,4 +1,4 @@
-// UI utilities
+// UI utilities and page navigation
 
 function notify(message) {
   // Simple notification
@@ -28,6 +28,37 @@ function scrollToSection(id) {
   }
 }
 
+// Navigation helpers
+function showLessons() {
+  document.getElementById('lessons').style.display = 'block';
+  document.getElementById('sandbox').style.display = 'none';
+  document.getElementById('analytics').style.display = 'none';
+  document.getElementById('dashboard').style.display = 'none';
+  scrollToSection('lessons');
+}
+
+function updateNavBar() {
+  const navAuthGroup = document.getElementById('nav-auth-group');
+  const user = JSON.parse(localStorage.getItem('user') || '{}');
+
+  if (authToken && user.name) {
+    navAuthGroup.innerHTML = `
+      <span style="font-size: 14px; color: var(--text-soft);">Welcome, ${user.name}!</span>
+      <button class="nav-cta" onclick="viewDashboard()">Dashboard</button>
+      <button class="nav-cta" style="background: rgba(10, 26, 47, 0.9); color: var(--white);" onclick="logout()">Logout</button>
+    `;
+  }
+}
+
+function viewDashboard() {
+  document.getElementById('dashboard').style.display = 'block';
+  document.getElementById('lessons').style.display = 'none';
+  document.getElementById('sandbox').style.display = 'none';
+  document.getElementById('analytics').style.display = 'none';
+  scrollToSection('dashboard');
+  updateDashboard();
+}
+
 // Add slide-in animation
 const style = document.createElement('style');
 style.innerText = `
@@ -41,13 +72,37 @@ style.innerText = `
       opacity: 1;
     }
   }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
 `;
 document.head.appendChild(style);
 
 // Load initial data
 window.addEventListener('DOMContentLoaded', () => {
-  loadLessons();
-  if (authToken) {
+  // Check if redirected from OAuth
+  const params = new URLSearchParams(window.location.search);
+  const token = params.get('token');
+  
+  if (token) {
+    authToken = token;
+    localStorage.setItem('authToken', token);
+    window.history.replaceState({}, document.title, window.location.pathname);
+    notify('✅ Logged in successfully!');
+    loadLessons();
     updateDashboard();
+    updateNavBar();
+  } else {
+    loadLessons();
+    if (authToken) {
+      updateDashboard();
+      updateNavBar();
+    }
   }
 });

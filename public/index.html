@@ -23,7 +23,9 @@
           <a href="#pricing">Pricing</a>
           <a href="#about">About</a>
         </div>
-        <button class="nav-cta" onclick="openAuth()">Sign In / Register</button>
+        <div class="nav-cta-group" id="nav-auth-group">
+          <button class="nav-cta" onclick="openAuth()">Sign In</button>
+        </div>
       </nav>
     </header>
 
@@ -94,6 +96,134 @@
         <div class="grid-2" id="lessons-grid"></div>
       </section>
 
+      <!-- Code Sandbox Section -->
+      <section class="section" id="sandbox" style="display: none;">
+        <h2 class="section-title">Code Sandbox</h2>
+        <p class="section-sub">Write and run code in real-time</p>
+        <div class="sandbox-container">
+          <div class="sandbox-editor">
+            <div class="editor-header">
+              <span>JavaScript Editor</span>
+              <select id="code-language" style="
+                background: transparent;
+                color: var(--white);
+                border: 1px solid var(--border-soft);
+                padding: 6px 12px;
+                border-radius: 6px;
+                font-size: 12px;
+              ">
+                <option value="javascript">JavaScript</option>
+                <option value="python">Python (Coming Soon)</option>
+              </select>
+            </div>
+            <textarea id="code-editor" class="code-editor" placeholder="// Write your code here
+function greet(name) {
+  return `Hello, ${name}!`;
+}
+
+console.log(greet('World'));"></textarea>
+            <div class="editor-actions">
+              <button class="btn-primary" id="run-code-btn" onclick="runCode()">▶️ Run Code</button>
+              <button class="btn-secondary" onclick="clearEditor()">Clear</button>
+            </div>
+          </div>
+          <div class="sandbox-output">
+            <div class="output-header">Output</div>
+            <div id="code-output" class="code-output">Click "Run Code" to see output...</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Analytics Dashboard Section -->
+      <section class="section" id="analytics" style="display: none;">
+        <h2 class="section-title">📊 Your Analytics</h2>
+        <p class="section-sub">Track your learning progress and achievements</p>
+        
+        <!-- Overview Cards -->
+        <div class="grid-3">
+          <div class="card">
+            <div class="card-label">Level</div>
+            <div class="card-title" id="ana-level">0</div>
+            <div class="card-text">Current Level</div>
+          </div>
+          <div class="card">
+            <div class="card-label">Total XP</div>
+            <div class="card-title" id="ana-xp">0</div>
+            <div class="card-text">Experience Points</div>
+          </div>
+          <div class="card">
+            <div class="card-label">Streak 🔥</div>
+            <div class="card-title" id="ana-streak">0</div>
+            <div class="card-text">Days in a Row</div>
+          </div>
+        </div>
+
+        <!-- Learning Progress -->
+        <div style="margin-top: 20px;">
+          <h3 class="section-title" style="font-size: 18px; margin-bottom: 12px;">Learning Progress</h3>
+          <div class="grid-2">
+            <div class="card">
+              <div class="card-label">Language Learning</div>
+              <div id="ana-lang-progress" class="progress-bar">
+                <div class="progress-fill" style="width: 0%;"></div>
+              </div>
+              <div class="card-text" id="ana-lang-text">0%</div>
+            </div>
+            <div class="card">
+              <div class="card-label">Code Learning</div>
+              <div id="ana-code-progress" class="progress-bar">
+                <div class="progress-fill" style="width: 0%;"></div>
+              </div>
+              <div class="card-text" id="ana-code-text">0%</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Code Submissions -->
+        <div style="margin-top: 20px;">
+          <h3 class="section-title" style="font-size: 18px; margin-bottom: 12px;">Code Submissions</h3>
+          <div class="grid-3">
+            <div class="card">
+              <div class="card-label">Total Submissions</div>
+              <div class="card-title" id="ana-submissions">0</div>
+              <div class="card-text">Code attempts</div>
+            </div>
+            <div class="card">
+              <div class="card-label">Passed</div>
+              <div class="card-title" id="ana-passed">0</div>
+              <div class="card-text">Successful submissions</div>
+            </div>
+            <div class="card">
+              <div class="card-label">Average Score</div>
+              <div class="card-title" id="ana-avg-score">0%</div>
+              <div class="card-text">Avg AI grade</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Lessons Completed -->
+        <div style="margin-top: 20px;">
+          <h3 class="section-title" style="font-size: 18px; margin-bottom: 12px;">Lessons Completed</h3>
+          <div class="card">
+            <div class="card-title" id="ana-lessons-completed">0</div>
+            <div class="card-text">out of 25 total lessons</div>
+            <div id="ana-lessons-bar" class="progress-bar" style="margin-top: 12px;">
+              <div class="progress-fill" style="width: 0%;"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Leaderboard Rank -->
+        <div style="margin-top: 20px;">
+          <h3 class="section-title" style="font-size: 18px; margin-bottom: 12px;">Leaderboard</h3>
+          <div class="card">
+            <div class="card-label">Your Rank</div>
+            <div class="card-title" id="ana-rank">-</div>
+            <div class="card-text">Out of all users</div>
+          </div>
+        </div>
+      </section>
+
       <!-- Pricing Section -->
       <section class="section" id="pricing">
         <h2 class="section-title">Simple Pricing</h2>
@@ -103,30 +233,19 @@
 
       <!-- Dashboard (Hidden until logged in) -->
       <section class="section" id="dashboard" style="display:none;">
-        <h2 class="section-title">Your Dashboard</h2>
+        <h2 class="section-title">Welcome Back!</h2>
         <div class="grid-2">
           <div class="card">
-            <div class="card-label">Welcome</div>
+            <div class="card-label">Profile</div>
             <div class="card-title" id="dash-name">Loading...</div>
             <div class="card-text">Plan: <span id="dash-plan">—</span></div>
-            <div class="pill-row">
-              <span class="pill" id="dash-title">Learner</span>
-            </div>
+            <button class="btn-secondary" style="width: 100%; margin-top: 12px;" onclick="viewAnalytics()">View Analytics</button>
           </div>
           <div class="card">
-            <div class="card-label">Progress</div>
-            <div class="card-title">Level <span id="dash-level">0</span></div>
-            <div class="card-text">XP: <span id="dash-xp">0</span></div>
-            <div class="pill-row">
-              <span class="pill">Streak: <span id="dash-streak">0</span>🔥</span>
-            </div>
-          </div>
-        </div>
-        <div style="margin-top: 20px;">
-          <h3 class="section-title">Recommended Next</h3>
-          <div class="card">
-            <div class="card-label">LEX Says</div>
-            <div class="card-title" id="dash-rec">Complete a lesson to get recommendations</div>
+            <div class="card-label">Quick Access</div>
+            <button class="btn-primary" style="width: 100%; margin-top: 8px;" onclick="scrollToSection('lessons')">📚 Lessons</button>
+            <button class="btn-primary" style="width: 100%; margin-top: 8px;" onclick="openSandbox()">💻 Code Sandbox</button>
+            <button class="btn-secondary" style="width: 100%; margin-top: 8px;" onclick="logout()">Logout</button>
           </div>
         </div>
       </section>
@@ -147,28 +266,56 @@
 
   <!-- Auth Modal -->
   <div class="modal" id="auth-modal">
-    <div class="modal-content">
-      <h2>Sign In or Register</h2>
-      <p id="auth-mode-text">Create a new account</p>
-      <input type="text" id="auth-name" placeholder="Full name" />
-      <input type="email" id="auth-email" placeholder="Email" />
-      <input type="password" id="auth-pass" placeholder="Password (min 6 chars)" />
-      <input type="number" id="auth-age" placeholder="Age" />
-      <button class="btn-primary" style="width: 100%; margin-top: 10px;" onclick="registerUser()">Create Account</button>
-      <p style="margin-top: 10px; font-size: 12px; text-align: center; color: var(--text-soft);">
-        Already have an account? <a href="#" onclick="loginMode()" style="color: var(--blue);">Sign In</a>
-      </p>
+    <div class="modal-content" style="max-width: 400px;">
+      <h2>Sign In or Create Account</h2>
+      <p id="auth-mode-text" style="color: var(--text-soft); margin-bottom: 16px;">Choose your login method</p>
+      
+      <!-- OAuth Buttons -->
+      <div style="display: flex; flex-direction: column; gap: 10px; margin-bottom: 16px;">
+        <a href="/api/auth/discord" class="oauth-button discord">
+          <span>🎮</span> Login with Discord
+        </a>
+        <a href="/api/auth/github" class="oauth-button github">
+          <span>🐙</span> Login with GitHub
+        </a>
+      </div>
+
+      <div style="text-align: center; color: var(--text-soft); font-size: 12px; margin: 16px 0;">
+        — Or use email —
+      </div>
+
+      <!-- Email Auth -->
+      <div id="email-auth-form">
+        <input type="text" id="auth-name" placeholder="Full name" style="display: none;" />
+        <input type="email" id="auth-email" placeholder="Email" />
+        <input type="password" id="auth-pass" placeholder="Password (min 6 chars)" />
+        <input type="number" id="auth-age" placeholder="Age" style="display: none;" />
+        <button class="btn-primary" style="width: 100%; margin-top: 10px;" onclick="registerUser()">Create Account</button>
+        <p style="margin-top: 10px; font-size: 12px; text-align: center; color: var(--text-soft);">
+          Already have an account? <a href="#" onclick="loginMode()" style="color: var(--blue);">Sign In</a>
+        </p>
+      </div>
+
       <button class="btn-secondary" style="width: 100%; margin-top: 10px;" onclick="closeAuth()">Close</button>
     </div>
   </div>
 
   <!-- Lesson Viewer Modal -->
   <div class="modal" id="lesson-modal" style="display: none;">
-    <div class="modal-content" style="max-width: 500px;">
+    <div class="modal-content" style="max-width: 600px;">
       <h2 id="lesson-title">Loading...</h2>
-      <ol id="lesson-steps" style="margin: 15px 0; color: var(--text-soft);"></ol>
-      <button class="btn-primary" style="width: 100%;" onclick="completeLesson()">Complete Lesson</button>
-      <button class="btn-secondary" style="width: 100%; margin-top: 10px;" onclick="closeLessonModal()">Close</button>
+      <p id="lesson-description" style="color: var(--text-soft); margin-bottom: 16px;"></p>
+      
+      <h3 style="font-size: 16px; margin-bottom: 12px;">Lesson Steps:</h3>
+      <ol id="lesson-steps" style="margin: 15px 0; color: var(--text-soft); margin-bottom: 16px;"></ol>
+      
+      <h3 style="font-size: 16px; margin-bottom: 12px;">Quiz:</h3>
+      <div id="lesson-quiz"></div>
+      
+      <div style="display: flex; gap: 10px; margin-top: 20px;">
+        <button class="btn-primary" style="flex: 1;" onclick="completeLesson()">✅ Mark as Complete</button>
+        <button class="btn-secondary" style="flex: 1;" onclick="closeLessonModal()">Close</button>
+      </div>
     </div>
   </div>
 
@@ -176,6 +323,8 @@
   <script src="/js/auth.js"></script>
   <script src="/js/progress.js"></script>
   <script src="/js/lessons.js"></script>
+  <script src="/js/sandbox.js"></script>
+  <script src="/js/analytics.js"></script>
   <script src="/js/ui.js"></script>
 </body>
 </html>

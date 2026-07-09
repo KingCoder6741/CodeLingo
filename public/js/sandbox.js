@@ -8,16 +8,6 @@ function initCodeSandbox() {
   codeOutput = document.getElementById('code-output');
 
   if (!codeEditor) return; // Sandbox not on this page
-
-  // Add run button listener
-  document.getElementById('run-code-btn')?.addEventListener('click', runCode);
-  
-  // Ctrl+Enter to run
-  codeEditor?.addEventListener('keydown', (e) => {
-    if (e.ctrlKey && e.key === 'Enter') {
-      runCode();
-    }
-  });
 }
 
 async function runCode() {
@@ -31,6 +21,7 @@ async function runCode() {
 
   if (!authToken) {
     notify('Please sign in to run code.');
+    openAuth();
     return;
   }
 
@@ -49,6 +40,23 @@ async function runCode() {
   } catch (err) {
     codeOutput.innerText = err.message;
     codeOutput.style.color = '#ff6b6b';
+  }
+}
+
+function clearEditor() {
+  codeEditor.value = '';
+  codeOutput.innerText = 'Click "Run Code" to see output...';
+  codeOutput.style.color = 'var(--text-soft)';
+}
+
+function openSandbox() {
+  document.getElementById('sandbox').style.display = 'block';
+  document.getElementById('lessons').style.display = 'none';
+  document.getElementById('analytics').style.display = 'none';
+  document.getElementById('dashboard').style.display = 'none';
+  scrollToSection('sandbox');
+  if (!codeEditor) {
+    initCodeSandbox();
   }
 }
 
